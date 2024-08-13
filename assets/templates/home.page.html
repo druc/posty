@@ -1,0 +1,19 @@
+{{template "main" .}}
+{{define "title"}}Home{{end}}
+{{define "content"}}
+<div class="space-y-6">
+  {{range .Posts}}
+  <article class="bg-white rounded shadow p-6 max-w-lg">
+    <div class="mb-3">
+      <h2 class="text-lg font-bold">{{.Title}}</h2>
+      <time class="text-xs text-gray-600" datetime="{{.CreatedAt}}">
+        {{humanDate .CreatedAt}}
+      </time>
+    </div>
+    <div class="text-gray-800 leading-normal">
+      {{.Content}}
+    </div>
+  </article>
+  {{end}}
+</div>
+{{end}}
