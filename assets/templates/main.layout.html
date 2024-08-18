@@ -26,6 +26,16 @@
               </a>
             </div>
           </div>
+
+          {{ with .User}}
+          <div class="text-sm text-gray-500">
+            Welcome, {{.Name}}
+
+            <form action="/logout" method="POST">
+              <button>Log me out</button>
+            </form>
+          </div>
+          {{end}}
         </div>
       </div>
     </nav>
