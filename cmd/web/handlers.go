@@ -7,6 +7,11 @@ import (
 )
 
 func (app *app) getHome(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		http.NotFound(w, r)
+		return
+	}
+
 	posts, err := app.posts.All()
 	if err != nil {
 		http.Error(w, err.Error(), 500)
