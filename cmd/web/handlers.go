@@ -49,7 +49,7 @@ func (app *app) storeLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	http.Redirect(w, r, "/", 302)
+	http.Redirect(w, r, "/", http.StatusFound)
 }
 
 func (app *app) storeLogout(w http.ResponseWriter, r *http.Request) {
@@ -61,7 +61,7 @@ func (app *app) storeLogout(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	http.Redirect(w, r, "/", 302)
+	http.Redirect(w, r, "/", http.StatusFound)
 }
 
 func (app *app) getRegister(w http.ResponseWriter, r *http.Request) {
@@ -85,7 +85,7 @@ func (app *app) storeRegister(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	http.Redirect(w, r, "/login", 302)
+	http.Redirect(w, r, "/login", http.StatusFound)
 }
 
 func (app *app) createPost(w http.ResponseWriter, r *http.Request) {
