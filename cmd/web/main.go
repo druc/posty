@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/druc/posty/internal/models/sqlite"
+	"github.com/gorilla/csrf"
 	"github.com/gorilla/sessions"
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -24,7 +25,9 @@ func main() {
 
 	session := sessions.NewCookieStore([]byte("vlD0fatfJFfGt9FmaZnUKcC2nn0GeSYH"))
 	session.Options.HttpOnly = true
-	// session.Options.SameSite = http.SameSiteLaxMode
+	session.Options.SameSite = http.SameSiteLaxMode
+
+	CSRF := csrf.Protect([]byte("vlD0fatfJFfGt9FmaZnUKcC2nn0GeSYH"), csrf.Path("/"))
 
 	app := app{
 		posts: &sqlite.PostModel{
@@ -38,7 +41,7 @@ func main() {
 
 	srv := http.Server{
 		Addr:    ":8000",
-		Handler: app.routes(),
+		Handler: CSRF(app.routes()),
 	}
 
 	log.Println("Listing on :8000")

@@ -2,6 +2,7 @@
 {{define "title"}}Login{{end}}
 {{define "content"}}
 <form action="/login" method="POST" class="max-w-lg space-y-4">
+  {{.csrfField}}
   <div>
     <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
     {{range .Form.Errors.Get "email"}}

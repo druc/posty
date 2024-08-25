@@ -2,6 +2,7 @@
 {{define "title"}}Register{{end}}
 {{define "content"}}
 <form action="/register" method="POST" class="max-w-lg space-y-4">
+  {{.csrfField}}
   <div>
     <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
     {{range .Form.Errors.Get "name"}}

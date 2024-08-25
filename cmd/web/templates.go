@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/druc/posty/internal/models"
+	"github.com/gorilla/csrf"
 )
 
 type pageData map[string]any
@@ -34,6 +35,7 @@ func render(w http.ResponseWriter, r *http.Request, page string, data pageData) 
 	if ok {
 		data["User"] = user
 	}
+	data["csrfField"] = csrf.TemplateField(r)
 
 	t.Execute(w, data)
 }
