@@ -5,8 +5,8 @@ import "net/http"
 func (app *app) routes() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /", app.getHome)
-	mux.HandleFunc("GET /posts/create", app.createPost)
-	mux.HandleFunc("POST /posts/create", app.storePost)
+	mux.Handle("GET /posts/create", app.requireAuth(http.HandlerFunc(app.createPost)))
+	mux.Handle("POST /posts/create", app.requireAuth(http.HandlerFunc(app.storePost)))
 	mux.HandleFunc("GET /register", app.getRegister)
 	mux.HandleFunc("POST /register", app.storeRegister)
 	mux.HandleFunc("GET /login", app.getLogin)

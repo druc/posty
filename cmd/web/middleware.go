@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 	"net/http"
+
+	"github.com/druc/posty/internal/models"
 )
 
 type contextKey string
@@ -26,5 +28,17 @@ func (app *app) authenticate(next http.Handler) http.Handler {
 
 		ctx := context.WithValue(r.Context(), contextKeyUser, user)
 		next.ServeHTTP(w, r.WithContext(ctx))
+	})
+}
+
+func (app *app) requireAuth(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_, ok := r.Context().Value(contextKeyUser).(models.User)
+		if !ok {
+			http.Error(w, "Unauthorized.", http.StatusUnauthorized)
+			return
+		}
+
+		next.ServeHTTP(w, r)
 	})
 }

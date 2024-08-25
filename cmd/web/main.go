@@ -24,7 +24,7 @@ func main() {
 
 	session := sessions.NewCookieStore([]byte("vlD0fatfJFfGt9FmaZnUKcC2nn0GeSYH"))
 	session.Options.HttpOnly = true
-	session.Options.SameSite = http.SameSiteLaxMode
+	// session.Options.SameSite = http.SameSiteLaxMode
 
 	app := app{
 		posts: &sqlite.PostModel{
